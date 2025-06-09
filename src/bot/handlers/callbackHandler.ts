@@ -11,7 +11,6 @@ const callbackQuerySchema = z.object({
 export async function callbackHandler(ctx: Context) {
   const callback = ctx.callbackQuery;
 
-  // Проверка данных через Zod
   const result = callbackQuerySchema.safeParse(callback);
   if (!result.success) return;
 

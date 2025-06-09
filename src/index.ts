@@ -2,11 +2,9 @@ import { Telegraf } from "telegraf";
 import { config } from "dotenv";
 config();
 
-import { BOT_TOKEN, MONGODB_URI } from "./config/env.js"; // централизованный импорт
+import { BOT_TOKEN, MONGODB_URI } from "./config/env.js";
 
-// import { connectDB } from "./config/db";
 import { connectDB } from "./config/connectDB";
-
 
 import { planCommand } from "./bot/commands/plan";
 import { startCommand } from "./bot/commands/start";
@@ -16,10 +14,8 @@ import { generateWorkoutPlan } from "./bot/data/workoutPlan";
 import { callbackHandler } from "./bot/handlers/callbackHandler";
 import { handleDailyTraining } from "./bot/handlers/trainingHandler";
 
-// Инициализация бота
 const bot = new Telegraf(BOT_TOKEN);
 
-// Регистрация команд
 bot.start((ctx) => {
   console.log(`👤 Новый пользователь: ${ctx.from?.username}`);
   return startCommand(ctx);
@@ -40,7 +36,6 @@ bot.action("goal_fat", (ctx) => {
   sendPlan(ctx, plan);
 });
 
-// Запуск бота
 async function launchBot() {
   try {
     await connectDB(MONGODB_URI);
@@ -67,6 +62,5 @@ process.on("unhandledRejection", (reason, promise) => {
 
 launchBot();
 
-// Обработка завершения
 process.once("SIGINT", () => bot.stop("SIGINT"));
 process.once("SIGTERM", () => bot.stop("SIGTERM"));
