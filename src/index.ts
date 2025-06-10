@@ -2,9 +2,7 @@ import { Telegraf } from "telegraf";
 import { config } from "dotenv";
 config();
 
-import { BOT_TOKEN, MONGODB_URI } from "./config/env.js";
-
-import { connectDB } from "./config/connectDB";
+import { BOT_TOKEN } from "./config/env.js";
 
 import { planCommand } from "./bot/commands/plan";
 import { startCommand } from "./bot/commands/start";
@@ -38,7 +36,6 @@ bot.action("goal_fat", (ctx) => {
 
 async function launchBot() {
   try {
-    await connectDB(MONGODB_URI);
     await bot.launch();
     console.log("✅ Бот успешно запущен!");
   } catch (err) {
