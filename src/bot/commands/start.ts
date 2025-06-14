@@ -1,5 +1,4 @@
 import { Context } from "telegraf";
-import { User } from "../../database/models/User";
 import { goalCommand } from "./goal";
 
 export const startCommand = async (ctx: Context) => {
